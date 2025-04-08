@@ -5,8 +5,17 @@ name = "pypi"
 
 [packages]
 django = "==5.2"
+python-dotenv = "*"
+djangorestframework = "*"
+django-countries = "*"
+django-phonenumber-field = "*"
+phonenumbers = "*"
+drf-spectacular = "*"
+pillow = "*"
 
 [dev-packages]
+watchfiles = "==0.22.0"
+black = "==24.8.0"
 
 [requires]
 python_version = "3.12"
