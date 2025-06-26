@@ -2,10 +2,11 @@
 
 from pathlib import Path
 
-from django.conf.global_settings import STATIC_ROOT, LOGGING
+from django.conf.global_settings import STATIC_ROOT, LOGGING, AUTH_USER_MODEL
 from dotenv import load_dotenv
 from os import getenv, path
 from loguru import logger
+from datetime import timedelta
 
 # from config.settings import INSTALLED_APPS
 
@@ -65,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "core_apps.user_auth.middleware.CustomHeaderMiddleware"
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -151,6 +153,21 @@ STATIC_ROOT = str(BASE_DIR/"staticfiles")
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = "user_auth.User"
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS":"drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "NextGen Bank API",
+    "DESCRIPTION": "An API built for a banking system",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "LICENSE":{
+        "name": "MIT License",
+        "url": "https://opensource.org/licenses/MIT"
+    }
+}
 
 LOGGING_CONFIG = None
 LOGURU_LOGGING = {

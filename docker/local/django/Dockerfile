@@ -48,7 +48,7 @@ COPY --chown=django:django ./docker/local/django/entrypoint.sh /entrypoint.sh
 COPY --chown=django:django ./docker/local/django/start.sh /start.sh
 
 RUN sed -i 's/\r$//g' /entrypoint.sh /start.sh && \
-    chmod += /entrypoint.sh /start.sh
+    chmod +x /entrypoint.sh /start.sh
 
 USER django
 

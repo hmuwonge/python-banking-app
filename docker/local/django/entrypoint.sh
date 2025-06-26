@@ -2,7 +2,7 @@
 
 set -o errexit
 
-set -o pipfail
+set -o pipefail
 
 set -o nounset
 
@@ -10,8 +10,8 @@ python << END
 import sys
 import time
 import psycopg2
-suggest_unrecoverable_after =30
-start =time.time()
+suggest_unrecoverable_after = 30
+start = time.time()
 while True:
   try:
     psycopg2.connect(
@@ -23,10 +23,10 @@ while True:
     )
     break
   except psycopg2.OperationalError as error:
-    syst.stderr.write("Writing for PostgresSQL to become available ...\n")
+    sys.stderr.write("Waiting for PostgreSQL to become available ...\n")
     if time.time() - start > suggest_unrecoverable_after:
-      syst.stderr.write(
-        "This is taking longer than expected. The following exception maye be "
+      sys.stderr.write(
+        "This is taking longer than expected. The following exception may be "
         "indicative of an unrecoverable error: '{}'\n".format(error)
       )
     time.sleep(3)
@@ -34,3 +34,5 @@ while True:
 END
 
 echo >&2 'PostgresSQL is available'
+
+exec "$@"
