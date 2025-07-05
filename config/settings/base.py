@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+from cloudinary.templatetags import cloudinary
 from django.conf.global_settings import STATIC_ROOT, LOGGING, AUTH_USER_MODEL
 from dotenv import load_dotenv
 from os import getenv, path
@@ -168,6 +169,33 @@ SPECTACULAR_SETTINGS = {
         "url": "https://opensource.org/licenses/MIT"
     }
 }
+
+if USE_TZ:
+    CELERY_TIMEZONE = TIME_ZONE
+
+CELERY_BROKER_URL = getenv("CELERY_BROKER_URL")
+CELERY_RESULT_BACKEND = getenv("CELERY_RESULT_BACKEND")
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_RESULT_BACKEND_MAX_RETIRES =10
+CELERY_TASK_SEND_SENT_EVENT =True
+CELERY_RESULT_EXTENDED =True
+CELERY_RESULT_BACKEND_ALWAYS_RETRY =True
+CELERY_TASK_TIME_LIMIT =5*60
+CELERY_TASK_SOFT_TIME_LIMIT = 60
+CELERY_BEAT_SCHEDULER ="django_celery_beat.schedulers.DatabaseScheduler"
+CELERY_WORKER_SEND_TASK_EVENTS = True
+
+CLOUDINARY_CLOUD_NAME = getenv("CLOUDINARY_CLOUD_NAME")
+CLOUDINARY_API_KEY = getenv("CLOUDINARY_API_KEY")
+CLOUDINARY_API_SECRET = getenv("CLOUDINARY_API_SECRET")
+
+cloudinary.config(
+    cloud_name=CLOUDINARY_CLOUD_NAME,
+    api_key=CLOUDINARY_API_KEY,
+    api_secret=CLOUDINARY_API_SECRET,
+)
 
 LOGGING_CONFIG = None
 LOGURU_LOGGING = {
