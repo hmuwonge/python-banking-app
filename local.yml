@@ -107,12 +107,13 @@ services:
         - banker_local_nw
 
 networks:
-    banker_local_nw:
-        external: true
+  banker_local_nw:
+    driver: bridge
 
 volumes:
   banker_local_db:
   banker_mailpit_db:
   logs_store:
   rabbitmq_log:
+  rabbitmq_data:
   flower_db:

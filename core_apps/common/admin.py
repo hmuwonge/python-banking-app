@@ -10,18 +10,17 @@ from django.contrib.contenttypes.admin import GenericTabularInline
 from .models import ContentView
 
 @admin.register(ContentView)
-class ContentViewAdmin(GenericTabularInline):
+class ContentViewAdmin(admin.ModelAdmin):
     list_display =[
         "user",
         "content_object",
         "content_type",
         "viewer_ip",
-        "last_viewed",
         "last_viewed_at",
         "created_at",
         "updated_at"
         ]
-    list_filter = ["content_type", "last_viewed", "created_at"]
+    list_filter = ["content_type", "last_viewed_at", "created_at"]
     search_fields = ["user__email", "content_type__model", "viewer_ip"]
     readonly_fields = [
         "content_type",
