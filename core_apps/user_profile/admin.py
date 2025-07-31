@@ -31,19 +31,19 @@ class UserProfileAdmin(admin.ModelAdmin):
     search_fields = ["user__email","user__first_name","phone_number"]
     readonly_fields = ["user"]
     fieldsets = (
-        _("Personal Information"),
+        (_("Personal Information"),
         {
             "fields":(
                 "user",
                 "photo",
-                "is_photo",
+                "id_photo",
                 "signature_photo",
                 "title",
                 "gender",
                 "date_of_birth",
                 "marital_status",
             )
-        },
+        }),
         (
             _("Contact Information"),
             {
@@ -103,4 +103,9 @@ class UserProfileAdmin(admin.ModelAdmin):
 class NextOfKinAdmin(admin.ModelAdmin):
     list_display = ['full_name','last_name','relationship','profile','is_primary']
     list_filter = ["is_primary"]
+    
+    def full_name(self, obj) -> str:
+        return f"{obj.first_name} {obj.last_name}"
+    
+    full_name.short_description = _("Full Name")
 

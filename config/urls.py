@@ -20,6 +20,6 @@ urlpatterns = [
     path("api/v1/schema/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
 ]
 
-admin.site.site_header = "NextGen Bank Admin"
-admin.site.site_title = "NextGen Bank Admin Portal",
-admin.site.index_title = "Welcome to NextGen Bank Admin Portal"
+admin.site.site_header = "Smart Bank Admin"
+admin.site.site_title = "Smart Bank Admin Portal",
+admin.site.index_title = "Welcome to Smart Bank Admin Portal"
